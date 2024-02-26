@@ -1,0 +1,238 @@
+﻿/* Вся страница */
+body{
+    margin: 0;
+    background-color: lightgrey;
+}
+
+/* Шапка */
+.header{
+    margin: 0;
+    background-color: purple;
+    color: white;
+    padding: 0.6rem 1rem;
+}
+
+/* Кнопка смены темы */
+.btnTheme{
+    position: absolute;
+    right: 15px;
+    top: 15px;
+}
+
+
+/* Контейнер для изображения из слоев */
+.layers-image{
+    position: relative; /*Можно сдвигать вручную*/
+    cursor:pointer;
+
+    /*По центру*/
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/*Изображения в контейнере*/
+.layers-image img{
+    /*Адаптивное изменение ширины*/
+    max-width: 100%;
+}
+
+/* Информация текстом */
+.info{
+    background-color: white;
+    padding: 13px;
+}
+
+/* Элемент таблицы */
+li{
+    margin-bottom: 10px;
+}
+
+
+/*Контейнер с книгами*/
+.book-container {
+    display: flex;
+    justify-content: center; /*По центру*/
+    flex-wrap: wrap; /*Переводить на следующую строку*/
+    padding:  10px;
+}
+
+/*Одна книга*/
+.book{
+    text-align: center;
+    /*На большом экране умещается 3 книги в ряд*/
+    max-width: 33%;
+}
+
+/*Описание книги скрыто белым текстом на белом фоне*/
+.book-description{
+    color: white;
+}
+
+/* Первая буква описания, псевдоэлемент first-letter */
+.show-description::first-letter{
+    color: #435bdb;
+    font-size: 21px;
+}
+
+
+/*Картинка книги*/
+.book img {
+    width:  100%;
+    max-width: 300px;
+    height: 400px;
+}
+
+/*Заголовок книги*/
+.book h2 {
+    font-size:  25px;
+}
+
+/*Текст книги*/
+.book p {
+    margin-bottom: 10px;
+}
+
+
+
+
+/* Адаптивные стили */
+
+    /* Ноутбуки, книг умещается 2 в ряд вместо трех  */
+    @media (max-width: 992px) {
+        .book {
+            max-width: 50%;
+        }
+
+        /*Видео меньше*/
+        video {
+            width: 306px;
+            height: 608px;
+        }
+    }
+
+    /* Планшеты и меньше, умещается одна книга в ряду */
+    @media (max-width: 720px) {
+        .book {
+            max-width: 100%; 
+            padding: 10px; 
+        }
+
+        /*Видео на всю щирину экрана*/
+        video {
+            width: 100%;
+            height: auto;
+        }
+
+        /*Аудио на всю щирину экрана*/
+        audio {
+            width: 100%;
+        }
+    }
+
+
+
+/* Подвал */
+.footer{
+    background-color: purple;
+    color: white;
+    padding: 25px;
+    text-align: center;
+}
+
+/* Класс для смены темы */
+.blue-theme {
+    background-color: #435bdb;
+}
+
+
+
+/* CSS Анимации */
+
+/* Анимация движения луны по кругу */
+    /* Земля */
+    .earth {
+        position: absolute;
+        top: 68px;
+        right: 41px;    
+
+        width:  50px;
+        height:  50px;
+        z-index:  1;
+    }
+    
+    /* Луна */
+    .moon {
+        position: absolute;
+        top: 83px;
+        right: 63px;
+
+        width: 8px;
+        height: 8px;
+        z-index:  2;
+        /*Анимация orbit*/
+        animation: orbit 4s linear infinite;
+    }
+    
+    /* Анимация orbit */
+    @keyframes orbit {
+        /*Сдвигаем контейнер с картинкой и поворачиваем его*/
+        0%   { transform: rotate(0deg) translateX(36px);}
+        100% { transform: rotate(-360deg) translateX(36px);}
+    }
+
+
+/* Анимация движения бровей */
+    /*Слои изображения*/
+    #podlojka,
+    #space,
+    #eyebrows {
+        /*Чтобы располагались друг над другом*/
+        position: absolute;
+    }
+
+    /* При наведении на контейнер изображений, 
+    у картинки с бровями активируется анимация bounce */
+    /*Псевдокласс hover*/
+    .layers-image:hover #eyebrows {
+        animation: bounce 1.5s;
+    }
+
+    /* Определение анимации bounce */
+    @keyframes bounce {
+        0%  { transform: translateY(0); }    /*Начальное положение сдвига по оси Y*/
+        25% { transform: translateY(-4px); } /*Вверх*/
+        50% { transform: translateY(4px); }  /*Вниз*/
+        75% { transform: translateY(-4px); } /*Вверх*/
+        100%{ transform: translateY(0); }    /*Вниз, Возвращение к начальному положению*/
+    }
+
+
+
+/* Анимация смены фона */
+    /* Класс, активирующий запуск анимации slide */
+    .animateSlide {
+    animation: slide 1.3s;
+    }
+
+    /* Анимация slide */
+    @keyframes slide {
+    0%  { transform: translateX(0); }     /*Начальное положение по оси x*/
+    50% { transform: translateX(-200%); } /*Сдвинуть влево за край экрана*/
+    100%{ transform: translateX(0); }     /*Сдвинуть вправо обратно*/
+    }
+
+
+/* Анимация проявления текста */
+
+    /*Класс активирует анимацию, проявляющую текст*/
+    .show-description{
+        /* Анимация showText */
+        animation: showText 1s forwards;
+    }
+
+    /* Описание анимации showText */
+    @keyframes showText {
+        0% { color: white; }  /*Текст переходит из белого в черный*/
+        100% { color: black; }
+    }
